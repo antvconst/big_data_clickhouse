@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  server_1:
+    build:
+      context: .
+      dockerfile: server.Dockerfile
+    image: ch-server
+    hostname: server_1 
+
+  server_2:
+    build:
+      context: .
+      dockerfile: server.Dockerfile
+    image: ch-server
+    hostname: server_2
+
+  client:
+    build:
+      context: .
+      dockerfile: client.Dockerfile
+    image: ch-client
+    hostname: clickhouse_client
+    volumes:
+      - data:/data
+
+volumes:
+  data:
+    driver_opts:
+        o: "bind"
+        type: "none"
+        device: "/home/akonstantinov/clickhouse_hw/data"
+
